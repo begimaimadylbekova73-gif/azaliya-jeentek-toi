@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Жээнтек той — Азалия | Чакыруу</title>
+  <meta name="description" content="Азалиянын Жээнтек тоюна чакыруу. Ресторан Алтын - Арашан, Улица Курманжан датка, 180. Саат 15:00." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Вступительный экран-конверт (как в классических онлайн-пригласительных) -->
+  <div id="welcomeOverlay" class="welcome-overlay">
+    <div class="welcome-card">
+      <div class="kyrgyz-ornament-top" aria-hidden="true">
+        <svg viewBox="0 0 260 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M130 6C118 6 112 18 100 18C88 18 82 8 70 8C58 8 52 20 40 20C28 20 22 14 10 14" stroke="url(#goldGrad)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M130 6C142 6 148 18 160 18C172 18 178 8 190 8C202 8 208 20 220 20C232 20 238 14 250 14" stroke="url(#goldGrad)" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M130 2L136 14L130 26L124 14L130 2Z" fill="url(#goldGrad)"/>
+          <circle cx="100" cy="18" r="3" fill="#D4AF37"/>
+          <circle cx="160" cy="18" r="3" fill="#D4AF37"/>
+          <circle cx="70" cy="8" r="2.5" fill="#E5C158"/>
+          <circle cx="190" cy="8" r="2.5" fill="#E5C158"/>
+          <defs>
+            <linearGradient id="goldGrad" x1="0" y1="0" x2="260" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#C99E5A"/>
+              <stop offset="0.5" stop-color="#E8C988"/>
+              <stop offset="1" stop-color="#B98742"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <span class="welcome-badge">ЧАКЫРУУ КАТЫ</span>
+      <h2 class="welcome-event">Жээнтек той</h2>
+      <h1 class="welcome-name">Азалия</h1>
+      <p class="welcome-sub">Сиздерди биздин кубанычыбызга ортоктош болууга чакырабыз</p>
+      <button id="openInviteBtn" class="btn-primary welcome-btn">
+        <span>Чакырууну ачуу</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Плавающий лепестковый/звёздный фон -->
+  <div id="petalsContainer" class="petals-container" aria-hidden="true"></div>
+
+  <!-- Кнопка музыки -->
+  <button id="musicToggle" class="music-toggle" aria-label="Музыканы күйгүзүү же өчүрүү" title="Музыка">
+    <div class="music-bars" id="musicBars">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <span class="music-label" id="musicLabel">Музыка</span>
+  </button>
+
+  <!-- Фоновая нежная мелодия (генерируемая музыкальная шкатулка Web Audio API + fallback аудио) -->
+  <main class="invitation-wrapper">
+
+    <!-- 1. ГЛАВНЫЙ ЭКРАН (HERO) -->
+    <section class="hero-section reveal">
+      <div class="ornament-divider" aria-hidden="true">
+        <svg viewBox="0 0 320 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M160 6C146 6 140 24 122 24C106 24 98 10 82 10C66 10 60 28 42 28C26 28 18 18 6 18" stroke="#C89B57" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M160 6C174 6 180 24 198 24C214 24 222 10 238 10C254 10 260 28 278 28C294 28 302 18 314 18" stroke="#C89B57" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M160 0L167 16L160 32L153 16L160 0Z" fill="#C89B57"/>
+          <path d="M160 12C152 24 140 34 126 34M160 12C168 24 180 34 194 34" stroke="#E2B877" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="122" cy="24" r="3" fill="#C89B57"/>
+          <circle cx="198" cy="24" r="3" fill="#C89B57"/>
+        </svg>
+      </div>
+
+      <p class="hero-pretitle">НАРИСТЕ ТОЮНА ЧАКЫРУУ</p>
+      <h2 class="hero-event-type">Жээнтек той</h2>
+      <h1 class="hero-baby-name">Азалия</h1>
+      <p class="hero-tagline">Кичинекей периштебиздин алгачкы чоң майрамы</p>
+
+      <div class="hero-arch-frame">
+        <div class="arch-glow"></div>
+        <div class="arch-inner">
+          <img
+            src="assets/images/hero_baby_beshik.png"
+            alt="Жээнтек той — Азалия"
+            class="hero-illustration"
+            onerror="this.style.display='none'; document.getElementById('heroFallbackSvg').style.display='flex';"
+          />
+          <div id="heroFallbackSvg" class="hero-fallback-svg" style="display: none;">
+            <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="120" cy="120" r="105" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <path d="M70 155C70 125 90 100 120 100C150 100 170 125 170 155H70Z" fill="#FADADD" stroke="#C89B57" stroke-width="2"/>
+              <path d="M60 155H180" stroke="#C89B57" stroke-width="3" stroke-linecap="round"/>
+              <path d="M75 155C85 178 155 178 165 155" stroke="#C89B57" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M120 65L126 80L142 82L130 93L133 109L120 101L107 109L110 93L98 82L114 80L120 65Z" fill="#E6C275"/>
+            </svg>
+          </div>
+        </div>
+        <div class="arch-badge">
+          <span>✿ Азалия ✿</span>
+        </div>
+      </div>
+
+      <div class="hero-quick-info">
+        <div class="quick-pill">
+          <span class="pill-label">Убактысы</span>
+          <span class="pill-value">Саат 15:00</span>
+        </div>
+        <div class="quick-divider"></div>
+        <div class="quick-pill">
+          <span class="pill-label">Орду</span>
+          <span class="pill-value">«Алтын - Арашан»</span>
+        </div>
+      </div>
+
+      <a href="#invitation-text" class="scroll-down-hint" aria-label="Ылдый жылдыруу">
+        <span>Толук маалымат</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- 2. ТЕКСТ ПРИГЛАШЕНИЯ (ОСТАЛЬНЫЕ ТЕКСТЫ СОХРАНЕНЫ В КЛАССИЧЕСКОМ СТИЛЕ ТОЯ) -->
+    <section id="invitation-text" class="card-section reveal">
+      <div class="section-emblem">
+        <img
+          src="assets/images/baby_princess_emblem.png"
+          alt="Азалия — Жээнтек той"
+          class="emblem-img"
+          onerror="this.style.display='none'"
+        />
+      </div>
+
+      <span class="section-subtitle">ЧАКЫРУУ</span>
+      <h2 class="section-title">Урматтуу коноктор!</h2>
+
+      <div class="invitation-poem">
+        <p>
+          Үйүбүзгө нур чачып, кубаныч тартуулаган кичинекей ханбийкебиз
+          <strong class="highlight-name">Азалиянын</strong> жарык дүйнөгө келишине арналган
+          <strong class="highlight-event">«Жээнтек той»</strong> салтанатыбыздын кадырлуу коногу болуп,
+          ак дасторконубуздан даам сызып, ак батаңыздарды берип кетүүгө чын жүрөктөн чакырабыз!
+        </p>
+      </div>
+
+      <blockquote class="kyrgyz-blessing">
+        «Бвла - бакыт , бала - байлык.<br/>
+        Наристебиздин өмүрү узун, келечеги кең, акыл-эстүү, бактылуу кыздардан болсун!»
+      </blockquote>
+
+      <div class="ornament-mini" aria-hidden="true">✦ ❀ ✦</div>
+    </section>
+
+    <!-- 3. ВРЕМЯ ПРОВЕДЕНИЯ И ТАЙМЕР -->
+    <section class="card-section time-section reveal">
+      <span class="section-subtitle">САЛТАНАТ УБАКТЫСЫ</span>
+      <h2 class="section-title">Тойдун башталышы</h2>
+
+      <div class="time-featured-box">
+        <div class="time-icon-circle">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B88644" stroke-width="1.7">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+        </div>
+        <div class="time-big-label">Башталуу убактысы / Время</div>
+        <div class="time-big-value">15:00</div>
+        <p class="time-note">Кечикпей келүүңүздөрдү суранабыз</p>
+      </div>
+
+      <div class="countdown-wrapper">
+        <p class="countdown-caption">Тойго чейин калды:</p>
+        <div class="countdown-grid" id="countdownGrid">
+          <div class="countdown-item">
+            <span class="countdown-num" id="cdDays">00</span>
+            <span class="countdown-unit">Күн</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cdHours">00</span>
+            <span class="countdown-unit">Саат</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cdMinutes">00</span>
+            <span class="countdown-unit">Мүнөт</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cdSeconds">00</span>
+            <span class="countdown-unit">Секунд</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. АДРЕС И МЕСТО ПРОВЕДЕНИЯ -->
+    <section class="card-section location-section reveal">
+      <div class="floral-banner-wrap">
+        <img
+          src="assets/images/venue_floral_divider.png"
+          alt="Гүлдөр жана оймо"
+          class="floral-banner-img"
+          onerror="this.style.display='none'"
+        />
+      </div>
+
+      <span class="section-subtitle">ДАРЕГИБИЗ</span>
+      <h2 class="section-title">Өткөрүлүүчү жай</h2>
+
+      <div class="venue-card">
+        <div class="venue-pin-icon">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#B88644" stroke-width="1.8">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <h3 class="venue-name">Ресторан «Алтын - Арашан»</h3>
+        <p class="venue-address-label">Адрес:</p>
+        <p class="venue-address">Улица Курманжан датка, 180</p>
+        <p class="venue-time-chip">Саат / Время: <strong>15:00</strong></p>
+
+        <div class="map-buttons">
+          <a
+            href="https://2gis.kg/search/%D0%90%D0%BB%D1%82%D1%8B%D0%BD%20%D0%90%D1%80%D0%B0%D1%88%D0%B0%D0%BD%20%D0%9A%D1%83%D1%80%D0%BC%D0%B0%D0%BD%D0%B6%D0%B0%D0%BD%20%D0%94%D0%B0%D1%82%D0%BA%D0%B0%20180"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-map btn-2gis"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+              <line x1="9" y1="3" x2="9" y2="18"/>
+              <line x1="15" y1="6" x2="15" y2="21"/>
+            </svg>
+            <span>2ГИС картадан ачуу</span>
+          </a>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=%D0%A3%D0%BB%D0%B8%D1%86%D0%B0+%D0%9A%D1%83%D1%80%D0%BC%D0%B0%D0%BD%D0%B6%D0%B0%D0%BD+%D0%B4%D0%B0%D1%82%D0%BA%D0%B0+180+%D0%90%D0%BB%D1%82%D1%8B%D0%BD+%D0%90%D1%80%D0%B0%D1%88%D0%B0%D0%BD"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-map btn-gmaps"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="10" r="3"/>
+              <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/>
+            </svg>
+            <span>Google Карта</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ПРОГРАММА ТОРЖЕСТВА -->
+    <section class="card-section program-section reveal">
+      <span class="section-subtitle">ПРОГРАММА</span>
+      <h2 class="section-title">Тойдун жүрүшү</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">15:00</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>Конокторду тосуп алуу</h4>
+            <p>Жылуу жолугушуу, эстеликке сүрөткө түшүү</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">15:30</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>Салтанаттуу ачылыш</h4>
+            <p>Азалиянын Жээнтек тоюн ачуу жана бешик ыры</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">16:00</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>Ак дасторкон жана бата берүү</h4>
+            <p>Сый тамак, каалоо-тилектер жана ак бата</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">17:30</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>Оюн-зоок жана бий</h4>
+            <p>Шоу-программа, ыр-күү жана майрамдык маанай</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ТОЙ ЭЭЛЕРИ (ХОЗЯЕВА ТОРЖЕСТВА) -->
+    <section class="card-section hosts-section reveal">
+      <span class="section-subtitle">УЮШТУРУУЧУЛАР</span>
+      <h2 class="section-title">Той ээлери</h2>
+
+      <div class="hosts-names-card">
+        <div class="hosts-crown" aria-hidden="true">♛</div>
+        <p class="hosts-names">Мээрим, Азамат, Бегимай</p>
+        <p class="hosts-message">
+          Сиздерди терең урматтоо менен ак дасторконубузда күтөбүз!
+        </p>
+      </div>
+    </section>
+
+    <!-- 7. АНКЕТА ГОСТЯ (RSVP) -->
+    <section class="card-section rsvp-section reveal">
+      <span class="section-subtitle">АНКЕТА</span>
+      <h2 class="section-title">Келериңизди тастыктаңыз</h2>
+      <p class="rsvp-desc">
+        Сиздерге ыңгайлуу шарт түзүү үчүн анкетаны толтуруп коюуңуздарды суранабыз:
+      </p>
+
+      <form id="rsvpForm" class="rsvp-form">
+        <div class="form-group">
+          <label for="guestName">Аты-жөнүңүз / Ваше имя и фамилия</label>
+          <input
+            type="text"
+            id="guestName"
+            name="guestName"
+            placeholder="Мисалы: Асан Усенов"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Тойго катышууңуз / Присутствие на тое</label>
+          <div class="radio-group">
+            <label class="radio-card">
+              <input type="radio" name="attendance" value="Сөзсүз келем / Обязательно приду" checked />
+              <span class="radio-custom"></span>
+              <span class="radio-text">Сөзсүз келем (Обязательно приду)</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="attendance" value="Үй-бүлөм менен келем / Приду с семьёй" />
+              <span class="radio-custom"></span>
+              <span class="radio-text">Үй-бүлөм менен келем (Приду с семьёй)</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="attendance" value="Тилекке каршы, келе албайм / Не смогу прийти" />
+              <span class="radio-custom"></span>
+              <span class="radio-text">Тилекке каршы, келе албайм</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="guestWishes">Азалияга каалоо-тилектериңиз / Пожелания</label>
+          <textarea
+            id="guestWishes"
+            name="guestWishes"
+            rows="3"
+            placeholder="Жылуу каалоо-тилектериңизди жазыңыз..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary btn-submit">
+          <span>Жөнөтүү / Отправить</span>
+        </button>
+      </form>
+
+      <div id="rsvpSuccess" class="rsvp-success" style="display: none;">
+        <div class="success-icon">✿</div>
+        <h3>Ыраазычылык билдиребиз!</h3>
+        <p id="rsvpSuccessText">Жообуңуз кабыл алынды. Сизди тойдо күтөбүз!</p>
+      </div>
+    </section>
+
+    <!-- ПОДВАЛ И КНОПКИ ПОДЕЛИТЬСЯ ССЫЛКОЙ -->
+    <footer class="invitation-footer reveal">
+      <div class="share-box">
+        <p class="share-label">Чакыруу шилтемеси менен бөлүшүү / Отправить приглашение:</p>
+        <div class="share-buttons">
+          <button type="button" id="copyLinkBtn" class="btn-map btn-copy">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span id="copyLinkText">Скопировать ссылку</span>
+          </button>
+          <a
+            id="whatsappShareBtn"
+            href="https://wa.me/?text=%D0%A3%D1%80%D0%BC%D0%B0%D1%82%D1%82%D1%83%D1%83%20%D0%BA%D0%BE%D0%BD%D0%BE%D0%BA%D1%82%D0%BE%D1%80!%20%D0%A1%D0%B8%D0%B7%D0%B4%D0%B5%D1%80%D0%B4%D0%B8%20%D0%90%D0%B7%D0%B0%D0%BB%D0%B8%D1%8F%D0%BD%D1%8B%D0%BD%20%D0%96%D1%8D%D1%8D%D0%BD%D1%82%D0%B5%D0%BA%20%D1%82%D0%BE%D1%8E%D0%BD%D0%B0%20%D1%87%D0%B0%D0%BA%D1%8B%D1%80%D0%B0%D0%B1%D1%8B%D0%B7%3A%20https%3A%2F%2Fbegimaimadylbekova73-gif.github.io%2Fazaliya-jeentek-toi%2F"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-map btn-whatsapp"
+          >
+            <span>Отправить в WhatsApp</span>
+          </a>
+        </div>
+      </div>
+      <div class="ornament-mini">✦ ❀ ✦</div>
+      <p class="footer-title">Жээнтек той — Азалия</p>
+      <p class="footer-meta">Ресторан «Алтын - Арашан» • Курманжан датка, 180 • 15:00</p>
+      <p class="footer-hosts">Той ээлери: Мээрим, Азамат, Бегимай</p>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
