@@ -202,7 +202,7 @@ if (rsvpForm) {
 }
 
 // 6. Кнопка копирования публичной ссылки
-const PUBLIC_INVITE_URL = 'https://begimaimadylbekova73-gif.github.io/azaliya-jeentek-toi/';
+const PUBLIC_INVITE_URL = 'https://is.gd/azaliya_jeentek_toi';
 const copyLinkBtn = document.getElementById('copyLinkBtn');
 const copyLinkText = document.getElementById('copyLinkText');
 
