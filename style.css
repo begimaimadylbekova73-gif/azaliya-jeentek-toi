@@ -105,13 +105,15 @@ body::before {
 }
 
 .welcome-name {
-  font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
-  font-size: 4.2rem;
-  font-weight: 400;
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   background: linear-gradient(135deg, #B55969 0%, #C89B57 55%, #9D7132 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin: 4px 0 12px;
+  margin: 6px 0 14px;
   line-height: 1.15;
 }
 
@@ -260,14 +262,16 @@ body::before {
 }
 
 .hero-baby-name {
-  font-family: 'Great Vibes', 'Playfair Display', cursive;
-  font-size: 5rem;
-  font-weight: 400;
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 4.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   background: linear-gradient(135deg, #B55969 0%, #D49B4B 55%, #9D6B2E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 1.12;
-  margin: 2px 0 8px;
+  line-height: 1.15;
+  margin: 4px 0 10px;
   filter: drop-shadow(0 4px 12px rgba(200, 155, 87, 0.15));
 }
 

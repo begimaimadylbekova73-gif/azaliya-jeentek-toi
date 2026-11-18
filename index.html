@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Жээнтек той — Азалия | Чакыруу</title>
-  <meta name="description" content="Азалиянын Жээнтек тоюна чакыруу. Ресторан Алтын - Арашан, Улица Курманжан датка, 180. Саат 15:00." />
+  <title>Тушоо той — Азалия | Чакыруу</title>
+  <meta name="description" content="Азалиянын Тушоо тоюна чакыруу. 5-декабрь, саат 15:00. Ресторан Алтын - Арашан, Улица Курманжан датка, 180." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -34,7 +34,7 @@
         </svg>
       </div>
       <span class="welcome-badge">ЧАКЫРУУ КАТЫ</span>
-      <h2 class="welcome-event">Жээнтек той</h2>
+      <h2 class="welcome-event">Тушоо той</h2>
       <h1 class="welcome-name">Азалия</h1>
       <p class="welcome-sub">Сиздерди биздин кубанычыбызга ортоктош болууга чакырабыз</p>
       <button id="openInviteBtn" class="btn-primary welcome-btn">
@@ -49,15 +49,17 @@
   <!-- Плавающий лепестковый/звёздный фон -->
   <div id="petalsContainer" class="petals-container" aria-hidden="true"></div>
 
+  <!-- Аудиоплеер: Бегиш - Кызыма -->
+  <audio id="bgMusic" src="assets/audio/begish-kyzyma.mp3" preload="auto" loop></audio>
+
   <!-- Кнопка музыки -->
-  <button id="musicToggle" class="music-toggle" aria-label="Музыканы күйгүзүү же өчүрүү" title="Музыка">
+  <button id="musicToggle" class="music-toggle" aria-label="Музыканы күйгүзүү же өчүрүү" title="Бегиш — Кызым">
     <div class="music-bars" id="musicBars">
       <span></span><span></span><span></span><span></span>
     </div>
-    <span class="music-label" id="musicLabel">Музыка</span>
+    <span class="music-label" id="musicLabel">Бегиш — Кызым</span>
   </button>
 
-  <!-- Фоновая нежная мелодия (генерируемая музыкальная шкатулка Web Audio API + fallback аудио) -->
   <main class="invitation-wrapper">
 
     <!-- 1. ГЛАВНЫЙ ЭКРАН (HERO) -->
@@ -74,7 +76,7 @@
       </div>
 
       <p class="hero-pretitle">НАРИСТЕ ТОЮНА ЧАКЫРУУ</p>
-      <h2 class="hero-event-type">Жээнтек той</h2>
+      <h2 class="hero-event-type">Тушоо той</h2>
       <h1 class="hero-baby-name">Азалия</h1>
       <p class="hero-tagline">Кичинекей периштебиздин алгачкы чоң майрамы</p>
 
@@ -83,7 +85,7 @@
         <div class="arch-inner">
           <img
             src="assets/images/hero_baby_beshik.png"
-            alt="Жээнтек той — Азалия"
+            alt="Тушоо той — Азалия"
             class="hero-illustration"
             onerror="this.style.display='none'; document.getElementById('heroFallbackSvg').style.display='flex';"
           />
@@ -104,6 +106,11 @@
 
       <div class="hero-quick-info">
         <div class="quick-pill">
+          <span class="pill-label">Күнү</span>
+          <span class="pill-value">5-декабрь</span>
+        </div>
+        <div class="quick-divider"></div>
+        <div class="quick-pill">
           <span class="pill-label">Убактысы</span>
           <span class="pill-value">Саат 15:00</span>
         </div>
@@ -122,12 +129,12 @@
       </a>
     </section>
 
-    <!-- 2. ТЕКСТ ПРИГЛАШЕНИЯ (ОСТАЛЬНЫЕ ТЕКСТЫ СОХРАНЕНЫ В КЛАССИЧЕСКОМ СТИЛЕ ТОЯ) -->
+    <!-- 2. ТЕКСТ ПРИГЛАШЕНИЯ -->
     <section id="invitation-text" class="card-section reveal">
       <div class="section-emblem">
         <img
           src="assets/images/baby_princess_emblem.png"
-          alt="Азалия — Жээнтек той"
+          alt="Азалия — Тушоо той"
           class="emblem-img"
           onerror="this.style.display='none'"
         />
@@ -138,9 +145,9 @@
 
       <div class="invitation-poem">
         <p>
-          Үйүбүзгө нур чачып, кубаныч тартуулаган кичинекей 
+          Үйүбүзгө нур чачып, кубаныч тартуулаган кичинекей
           <strong class="highlight-name">Азалиянын</strong> жарык дүйнөгө келишине арналган
-          <strong class="highlight-event">«Жээнтек той»</strong> салтанатыбыздын кадырлуу коногу болуп,
+          <strong class="highlight-event">«Тушоо той»</strong> салтанатыбыздын кадырлуу коногу болуп,
           ак дасторконубуздан даам сызып, ак батаңыздарды берип кетүүгө чын жүрөктөн чакырабыз!
         </p>
       </div>
@@ -153,10 +160,10 @@
       <div class="ornament-mini" aria-hidden="true">✦ ❀ ✦</div>
     </section>
 
-    <!-- 3. ВРЕМЯ ПРОВЕДЕНИЯ И ТАЙМЕР -->
+    <!-- 3. ДАТА, ВРЕМЯ ПРОВЕДЕНИЯ И ТАЙМЕР -->
     <section class="card-section time-section reveal">
       <span class="section-subtitle">САЛТАНАТ УБАКТЫСЫ</span>
-      <h2 class="section-title">Тойдун башталышы</h2>
+      <h2 class="section-title">Тойдун күнү жана башталышы</h2>
 
       <div class="time-featured-box">
         <div class="time-icon-circle">
@@ -165,13 +172,13 @@
             <path d="M12 7v5l3 2"/>
           </svg>
         </div>
-        <div class="time-big-label">Башталуу убактысы / Время</div>
-        <div class="time-big-value">15:00</div>
+        <div class="time-big-label">5-декабрь 2026-жыл • Башталуу убактысы</div>
+        <div class="time-big-value">05.12.2026 | 15:00</div>
         <p class="time-note">Кечикпей келүүңүздөрдү суранабыз</p>
       </div>
 
       <div class="countdown-wrapper">
-        <p class="countdown-caption">Тойго чейин калды:</p>
+        <p class="countdown-caption">Тойго чейин калды (5-декабрь, 15:00):</p>
         <div class="countdown-grid" id="countdownGrid">
           <div class="countdown-item">
             <span class="countdown-num" id="cdDays">00</span>
@@ -217,7 +224,7 @@
         <h3 class="venue-name">Ресторан «Алтын - Арашан»</h3>
         <p class="venue-address-label">Адрес:</p>
         <p class="venue-address">Улица Курманжан датка, 180</p>
-        <p class="venue-time-chip">Саат / Время: <strong>15:00</strong></p>
+        <p class="venue-time-chip">5-декабрь • Саат / Время: <strong>15:00</strong></p>
 
         <div class="map-buttons">
           <a
@@ -264,15 +271,15 @@
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-time">15:30</div>
+          <div class="timeline-time">16:00</div>
           <div class="timeline-dot"></div>
           <div class="timeline-content">
             <h4>Салтанаттуу ачылыш</h4>
-            <p>Азалиянын Жээнтек тоюн ачуу жана бешик ыры</p>
+            <p>Азалиянын Тушоо тоюн ачуу жана бешик ыры</p>
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-time">16:00</div>
+          <div class="timeline-time">17:30</div>
           <div class="timeline-dot"></div>
           <div class="timeline-content">
             <h4>Ак дасторкон жана бата берүү</h4>
@@ -280,7 +287,7 @@
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-time">17:30</div>
+          <div class="timeline-time">19:30</div>
           <div class="timeline-dot"></div>
           <div class="timeline-content">
             <h4>Оюн-зоок жана бий</h4>
@@ -381,7 +388,7 @@
           </button>
           <a
             id="whatsappShareBtn"
-            href="https://wa.me/?text=%D0%A3%D1%80%D0%BC%D0%B0%D1%82%D1%82%D1%83%D1%83%20%D0%BA%D0%BE%D0%BD%D0%BE%D0%BA%D1%82%D0%BE%D1%80!%20%D0%A1%D0%B8%D0%B7%D0%B4%D0%B5%D1%80%D0%B4%D0%B8%20%D0%90%D0%B7%D0%B0%D0%BB%D0%B8%D1%8F%D0%BD%D1%8B%D0%BD%20%D0%96%D1%8D%D1%8D%D0%BD%D1%82%D0%B5%D0%BA%20%D1%82%D0%BE%D1%8E%D0%BD%D0%B0%20%D1%87%D0%B0%D0%BA%D1%8B%D1%80%D0%B0%D0%B1%D1%8B%D0%B7%3A%20https%3A%2F%2Fis.gd%2Fazaliya_jeentek_toi"
+            href="https://wa.me/?text=%D0%A3%D1%80%D0%BC%D0%B0%D1%82%D1%82%D1%83%D1%83%20%D0%BA%D0%BE%D0%BD%D0%BE%D0%BA%D1%82%D0%BE%D1%80!%20%D0%A1%D0%B8%D0%B7%D0%B4%D0%B5%D1%80%D0%B4%D0%B8%20%D0%90%D0%B7%D0%B0%D0%BB%D0%B8%D1%8F%D0%BD%D1%8B%D0%BD%20%D0%A2%D1%83%D1%88%D0%BE%D0%BE%20%D1%82%D0%BE%D1%8E%D0%BD%D0%B0%20%D1%87%D0%B0%D0%BA%D1%8B%D1%80%D0%B0%D0%B1%D1%8B%D0%B7%20(5-%D0%B4%D0%B5%D0%BA%D0%B0%D0%B1%D1%80%D1%8C%2C%2015%3A00)%3A%20https%3A%2F%2Fis.gd%2Fazaliya_tushoo_toi"
             target="_blank"
             rel="noopener noreferrer"
             class="btn-map btn-whatsapp"
@@ -391,8 +398,8 @@
         </div>
       </div>
       <div class="ornament-mini">✦ ❀ ✦</div>
-      <p class="footer-title">Жээнтек той — Азалия</p>
-      <p class="footer-meta">Ресторан «Алтын - Арашан» • Курманжан датка, 180 • 15:00</p>
+      <p class="footer-title">Тушоо той — Азалия</p>
+      <p class="footer-meta">5-декабрь • Ресторан «Алтын - Арашан» • Курманжан датка, 180 • 15:00</p>
       <p class="footer-hosts">Той ээлери: Мээрим, Азамат, Бегимай</p>
     </footer>
 

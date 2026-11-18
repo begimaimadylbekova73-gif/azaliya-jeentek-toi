@@ -1,95 +1,82 @@
 // =========================================================================
-// НАСТРОЙКА ДАТЫ И ВРЕМЕНИ ТОРЖЕСТВА (Время 15:00 уже установлено)
-// По умолчанию ставится ближайшая праздничная дата в 15:00, можно указать точную дату:
-// Например: const CUSTOM_EVENT_DATE = "2026-11-28T15:00:00";
+// НАСТРОЙКА ДАТЫ И ВРЕМЕНИ ТОРЖЕСТВА: 5 ДЕКАБРЯ 2026, 15:00
 // =========================================================================
-const CUSTOM_EVENT_DATE = null;
+const CUSTOM_EVENT_DATE = "2026-12-05T15:00:00+06:00";
 
 function getTargetDate() {
   if (CUSTOM_EVENT_DATE) {
     return new Date(CUSTOM_EVENT_DATE);
   }
   const now = new Date();
-  const target = new Date(now);
-  target.setDate(now.getDate() + 10);
-  target.setHours(15, 0, 0, 0);
+  const target = new Date(now.getFullYear(), 11, 5, 15, 0, 0);
   return target;
 }
 
 const targetEventDate = getTargetDate();
 
-// 1. Вступительный экран-конверт и запуск нежной мелодии
+// 1. Вступительный экран-конверт и запуск песни «Бегиш — Кызым» с момента начала пения (15.5 сек)
 const welcomeOverlay = document.getElementById('welcomeOverlay');
 const openInviteBtn = document.getElementById('openInviteBtn');
 const musicToggle = document.getElementById('musicToggle');
 const musicBars = document.getElementById('musicBars');
 const musicLabel = document.getElementById('musicLabel');
+const bgMusic = document.getElementById('bgMusic');
 
-let audioCtx = null;
+// Секунда, на которой Бегиш начинает петь («Мен уктап жатып сен жөнүндө ойлойм...»)
+const VOCAL_START_SECONDS = 15.5;
 let isPlayingMusic = false;
-let melodyInterval = null;
+let hasSeekedToVocal = false;
 
-// Нежная праздничная мелодия в стиле музыкальной шкатулки (бешик ыры / колыбельная)
-const melodyNotes = [
-  523.25, 659.25, 783.99, 659.25,
-  880.00, 783.99, 659.25, 587.33,
-  523.25, 587.33, 659.25, 783.99,
-  659.25, 587.33, 523.25, 523.25
-];
-let noteIndex = 0;
+function seekToVocalStart() {
+  if (!bgMusic) return;
+  try {
+    if (!hasSeekedToVocal || bgMusic.currentTime < VOCAL_START_SECONDS) {
+      bgMusic.currentTime = VOCAL_START_SECONDS;
+      hasSeekedToVocal = true;
+    }
+  } catch (e) {
+    // Если метаданные еще не загрузились, перемотаем при loadedmetadata
+  }
+}
 
-function playGentleNote(freq) {
-  if (!audioCtx) return;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+if (bgMusic) {
+  bgMusic.volume = 0.85;
+  bgMusic.addEventListener('loadedmetadata', () => {
+    if (!hasSeekedToVocal) {
+      bgMusic.currentTime = VOCAL_START_SECONDS;
+      hasSeekedToVocal = true;
+    }
+  });
 
-  gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.055, audioCtx.currentTime + 0.08);
-  gain.gain.exponentialRampToValueAtTime(0.0008, audioCtx.currentTime + 1.15);
-
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 1.2);
+  // Когда песня заканчивается или уходит в инструментальный финал, повторяем снова со слов
+  bgMusic.addEventListener('timeupdate', () => {
+    if (bgMusic.currentTime >= 145) {
+      bgMusic.currentTime = VOCAL_START_SECONDS;
+    }
+  });
 }
 
 function startMusic() {
-  try {
-    if (!audioCtx) {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContextClass();
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    if (isPlayingMusic) return;
-    isPlayingMusic = true;
-    musicBars.classList.add('playing');
-    musicLabel.textContent = 'Музыка';
-
-    playGentleNote(melodyNotes[noteIndex % melodyNotes.length]);
-    noteIndex++;
-
-    melodyInterval = setInterval(() => {
-      if (!isPlayingMusic) return;
-      playGentleNote(melodyNotes[noteIndex % melodyNotes.length]);
-      noteIndex++;
-    }, 650);
-  } catch (err) {
-    console.warn('Audio autoplay prevented:', err);
-  }
+  if (!bgMusic) return;
+  seekToVocalStart();
+  bgMusic
+    .play()
+    .then(() => {
+      isPlayingMusic = true;
+      musicBars.classList.add('playing');
+      musicLabel.textContent = 'Бегиш — Кызым';
+    })
+    .catch((err) => {
+      console.warn('Autoplay prevented:', err);
+    });
 }
 
 function stopMusic() {
+  if (!bgMusic) return;
+  bgMusic.pause();
   isPlayingMusic = false;
   musicBars.classList.remove('playing');
-  musicLabel.textContent = 'Үнсүз';
-  if (melodyInterval) {
-    clearInterval(melodyInterval);
-    melodyInterval = null;
-  }
+  musicLabel.textContent = 'Музыка (пауза)';
 }
 
 if (openInviteBtn && welcomeOverlay) {
@@ -109,7 +96,7 @@ if (musicToggle) {
   });
 }
 
-// 2. Таймер обратного отсчёта до 15:00
+// 2. Таймер обратного отсчёта до 5 декабря 15:00
 function updateCountdown() {
   const now = new Date().getTime();
   const distance = targetEventDate.getTime() - now;
@@ -202,7 +189,7 @@ if (rsvpForm) {
 }
 
 // 6. Кнопка копирования публичной ссылки
-const PUBLIC_INVITE_URL = 'https://is.gd/azaliya_jeentek_toi';
+const PUBLIC_INVITE_URL = 'https://is.gd/azaliya_tushoo_toi';
 const copyLinkBtn = document.getElementById('copyLinkBtn');
 const copyLinkText = document.getElementById('copyLinkText');
 
